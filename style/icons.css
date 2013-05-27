@@ -1,0 +1,407 @@
+
+/******************************************************************************
+ * Setting icons
+ */
+
+.menu-item {
+  padding-left: 5.5rem;
+  background-repeat: no-repeat;
+  background-position: 1.4rem center;
+}
+
+.menu-item-desc {
+  left: 5.5rem;
+}
+
+.menu-item::before {
+  position: absolute;
+  top: calc((6.2rem - 3.2rem) / 2);
+  left: calc((5.5rem - 2.8rem) / 2);
+  width: 3rem;
+  height: 3rem;
+
+  content: '';
+  background-image: url(images/icons_sprite.gif);
+  background-size: 15rem;
+}
+
+.menu-item:active::before {
+  background-image: url(images/icons_sprite_active.gif);
+}
+
+#menuItem-airplaneMode::before {
+  background-position: 0 0;
+}
+
+#menuItem-gps::before {
+  background-position: -3rem 0;
+}
+
+#menuItem-wifi::before {
+  background-position: -6rem 0;
+}
+
+#menuItem-callSettings::before {
+  background-position: 0 -15rem;
+}
+
+#menuItem-cellularAndData::before {
+  background-position: -9rem 0;
+}
+
+#menuItem-bluetooth::before {
+  background-position: -12rem 0;
+}
+
+#menuItem-internetSharing::before {
+  background-position: 0 -3rem;
+}
+
+#menuItem-sound::before {
+  background-position: -3rem -3rem;
+}
+
+#menuItem-display::before {
+  background-position: -6rem -3rem;
+}
+
+#menuItem-notifications::before {
+  background-position: -9rem -3rem;
+}
+
+#menuItem-dateAndTime::before {
+  background-position: -12rem -3rem;
+}
+
+#menuItem-languageAndRegion::before {
+  background-position: 0 -6rem;
+}
+
+#menuItem-keyboard::before {
+  background-position: -3rem -6rem;
+}
+
+#menuItem-persona::before {
+  background-position: -6rem -6rem;
+}
+
+#menuItem-mail::before {
+  background-position: -9rem -6rem;
+}
+
+#menuItem-phoneLock::before {
+  background-position: -12rem -6rem;
+}
+
+#menuItem-simSecurity::before {
+  background-position: 0 -9rem;
+}
+
+#menuItem-appPermissions::before {
+  background-position: -3rem -9rem;
+}
+
+#menuItem-doNotTrack::before {
+  background-position: -6rem -9rem;
+}
+
+#menuItem-deviceInfo::before {
+  background-position: -9rem -9rem;
+}
+
+#menuItem-battery::before {
+  background-position: -12rem -9rem;
+}
+
+#menuItem-deviceStorage::before {
+  background-position: 0 -12rem;
+}
+
+#menuItem-mediaStorage::before {
+  background-position: -3rem -12rem;
+}
+
+#menuItem-accessibility::before {
+  background-position: -6rem -12rem;
+}
+
+#menuItem-improveBrowserOS::before {
+  background-position: -3rem -15rem;
+}
+
+#menuItem-help::before {
+  background-position: -9rem -12rem;
+}
+
+#menuItem-icc::before {
+  background-position: -12rem -12rem;
+}
+
+
+/******************************************************************************
+ * Wi-Fi icons
+ */
+
+/* signal levels */
+#wifi-availableNetworks > li > a {
+  background-repeat: no-repeat;
+  background-position: right 3rem top 50%;
+  padding-right: 3rem;
+  position: relative;
+}
+
+#wifi-availableNetworks a:before {
+  content: "";
+  width: 3.1rem;
+  height: 3rem;
+  background: url(images/wifi_sprite.png) no-repeat 3.2rem 0rem / 16rem;
+  position: absolute;
+  right: 3rem;
+  top: 50%;
+  margin-top: -2rem;
+}
+
+#wifi-availableNetworks a.wifi-signal0:before {
+  background-position: 0rem 0rem;
+}
+
+#wifi-availableNetworks a.wifi-signal1:before {
+  background-position: -3.2rem 0rem;
+}
+
+#wifi-availableNetworks a.wifi-signal2:before {
+  background-position: -6.4rem 0rem;
+}
+
+#wifi-availableNetworks a.wifi-signal3:before {
+  background-position: -9.6rem 0rem;
+}
+
+#wifi-availableNetworks a.wifi-signal4:before {
+  background-position: -12.8rem 0rem;
+}
+
+/* secured networks */
+.wifi-secure:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 5.6rem;
+  height: 5.6rem;
+  right: 4rem;
+  top: 0;
+  background: url(images/wifi_lock.png) no-repeat 0rem 0rem / 5.6rem;
+}
+/******************************************************************************
+ * Call Settings icons
+ */
+
+ #menuItem-callWaiting .alert-label > span {
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  background-image: url(images/call_waiting_disabled.png);
+  background-size: 3rem;
+  background-repeat: no-repeat;
+ }
+
+
+/******************************************************************************
+ * Bluetooth devices
+ */
+
+.bluetooth-device {
+  background-repeat: no-repeat;
+  background-position: right 3rem top 50%; /* same position as for Wi-Fi signal levels */
+  padding-right: 3rem;
+}
+
+.bluetooth-device:before {
+  content: "";
+  width: 3rem;
+  height: 3rem;
+  background: url(images/bluetooth_sprite.png) no-repeat 3rem 3rem / 39rem;
+  position: absolute;
+  right: 3rem;
+  top: 50%;
+  margin-top: -1.5rem;
+}
+
+/* device icons */
+.bluetooth-type-audio-card:before {
+  background-position: 0rem 0rem;
+}
+
+.bluetooth-type-audio-input-microphone:before {
+  background-position: -3rem 0rem;
+}
+
+.bluetooth-type-battery:before {
+  background-position: -6rem 0rem;
+}
+
+.bluetooth-type-camera-photo:before {
+  background-position: -9rem 0rem;
+}
+
+.bluetooth-type-camera-video:before {
+  background-position: -12rem 0rem;
+}
+
+.bluetooth-type-camera-web:before {
+  background-position: -15rem 0rem;
+}
+
+.bluetooth-type-computer:before {
+  background-position: -18rem 0rem;
+}
+
+.bluetooth-type-drive-harddisk:before {
+  background-position: -21rem 0rem;
+}
+
+.bluetooth-type-drive-optical:before {
+  background-position: -24rem 0rem;
+}
+
+.bluetooth-type-drive-removable-media:before {
+  background-position: -27rem 0rem;
+}
+
+.bluetooth-type-input-gaming:before {
+  background-position: -30rem 0rem;
+}
+
+.bluetooth-type-input-keyboard:before {
+  background-position: -33rem 0rem;
+}
+
+.bluetooth-type-input-mouse:before {
+  background-position: -36rem 0rem;
+}
+
+.bluetooth-type-input-tablet:before {
+  background-position: 0rem -3rem;
+}
+
+.bluetooth-type-media-flash:before {
+  background-position: -3rem -3rem;
+}
+
+.bluetooth-type-media-floppy:before {
+  background-position: -6rem -3rem;
+}
+
+.bluetooth-type-media-optical:before {
+  background-position: -9rem -3rem;
+}
+
+.bluetooth-type-media-tape:before {
+  background-position: -12rem -3rem;
+}
+
+.bluetooth-type-modem:before {
+  background-position: -15rem -3rem;
+}
+
+.bluetooth-type-multimedia-player:before {
+  background-position: -18rem -3rem;
+}
+
+.bluetooth-type-network-wired:before {
+  background-position: -21rem -3rem;
+}
+
+.bluetooth-type-network-wireless:before {
+  background-position: -24rem -3rem;
+}
+
+.bluetooth-type-pda,
+.bluetooth-type-phone {
+  background-position: -27rem -3rem;
+}
+
+.bluetooth-type-printer:before {
+  background-position: -30rem -30rem;
+}
+
+.bluetooth-type-scanner:before {
+  background-position: -33rem -30rem;
+}
+
+.bluetooth-type-video-display:before {
+  background-position: -36rem -30rem;
+}
+
+
+/******************************************************************************
+ * Privacy icons
+ */
+
+.privacy-menuitem {
+  padding-left: 5.5rem;
+  background-repeat: no-repeat;
+  background-position: 1.4rem center;
+}
+
+.privacy-menuitem:before {
+  content: "";
+  width: 3.3rem;
+  height: 3.3rem;
+  background: url(images/privacy_sprite.png) no-repeat 3rem 3rem / 9.6rem;
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  margin-top: -1.5rem;
+}
+
+.privacy-browserOS:before {
+  background-position: 0 0;
+}
+
+.privacy-everythingME:before {
+  background-position: -3.2rem 0;
+}
+
+.privacy-marketPlace:before {
+  background-position: -6.4rem 0;
+}
+
+
+/******************************************************************************
+ * Right-To-Left layout
+ */
+
+/* #root icons */
+
+html[dir="rtl"] #root li a[data-l10n-id] {
+  background-position: right 1.4rem top 50%;
+}
+
+html[dir="rtl"] #root ul a {
+  padding-left: inherit;
+  padding-right: 5.5rem;
+}
+
+html[dir="rtl"] #root li small {
+  left: auto;
+  right: 5.5rem;
+}
+
+/* other icons */
+
+html[dir="rtl"] #wifi-availableNetworks li,
+html[dir="rtl"] #bluetooth .devices li,
+html[dir="rtl"] #about-yourPrivacy li {
+  background-position: left 3rem top 50%;
+}
+
+html[dir="rtl"] #wifi-availableNetworks a.wifi-secure {
+  background-position: left center;
+}
+
+html[dir="rtl"] #bluetooth .devices li {
+  padding-left: 3rem;
+  padding-right: inherit;
+}
+

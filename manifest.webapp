@@ -1,0 +1,18 @@
+{
+  "name": "Hass",
+  "description": "Hash based password tool",
+  "package_path": "http://hass.ffos.lolcathost.org/hass.zip",
+  "default_locale": "en",
+"developer_notes": "First release",
+"size": 119601,
+"version": "0.1",
+  "developer": {
+    "name": "pancake",
+    "url": "http://hass.ffos.lolcathost.org/"
+  },
+  "icons": {
+    "128": "/icon128.png",
+    "120": "/icon120.png",
+    "60": "/icon60.png"
+  }
+}
