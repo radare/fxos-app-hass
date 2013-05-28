@@ -93,8 +93,8 @@
           <li>
             <p data-l10n-id="To">Algorithm</p>
             <p class="fake-select">
-              <button id="algorithm" class="icon icon-dialog">md5</button>
-	      <select id="algorithm_label" onchange="setAlgorithm()">
+              <button id="algo" class="icon icon-dialog">md5</button>
+	      <select id="algo_options" onchange="setAlgorithm()">
 		<option selected value="md5">md5</option>
 		<option value="md5^2">md5^2</option>
 		<option value="sha1">sha1</option>
@@ -126,8 +126,8 @@
           <li>
             <p data-l10n-id="From">From</p>
             <p class="fake-select">
-              <button id="label_from" class="icon icon-dialog">0</button>
-	      <select id="chop_from" onchange="setFrom()">
+              <button id="from" class="icon icon-dialog">0</button>
+	      <select id="from_options" onchange="setFrom()">
 		<option selected value="0">0</option>
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -151,8 +151,8 @@
           <li>
             <p data-l10n-id="Length">Length</p>
             <p class="fake-select">
-              <button id="length_label" class="icon icon-dialog">7</button>
-	      <select id="length" onchange="setLength()">
+              <button id="length" class="icon icon-dialog">7</button>
+	      <select id="length_options" onchange="setLength()">
 		<option value="1">1</option>
 		<option value="2">2</option>
 		<option value="3">3</option>
@@ -206,27 +206,29 @@
     <section role="region" id="about">
       <header>
         <a href="#root"><span class="icon icon-back">back</span></a>
-        <h1 data-l10n-id="about"> About Hass </h1>
+        <h1 data-l10n-id="about-hass"> About Hass </h1>
       </header>
-
       <div>
-        <ul>
+   <ul>
+<br />
 <center>
 <img src="/icon128.png" />
 <br />
-<h2><b>Hass</b></2>
 </center>
-<p style="font-size:1.6rem;margin:20px">
-Tool to generate passwords using an user-provided seed and configurable settings.
+<p style="font-size:1.6rem;margin:20px;text-align:justify">
+Hass: password generation tool
+</p>
+<p style="font-size:1.6rem;margin:20px;text-align:justify">
+Hass is not only a password generation tool. It aims to define good password practices. Using an easy-to-remember token (like hostname) and a given setup we will be rewarded with a password generated based on this input.
+</p>
+<p style="font-size:1.6rem;margin:20px;text-align:justify">
+Another good practice consists in adding an easy to remember prefix/infix/suffix to the final generated password.
+</p>
+<p style="font-size:1.6rem;margin:20px;text-align:justify">
+Passwords are not stored anywhere. Only the configuration, under user decision.
 </p>
 <p style="font-size:1.6rem;margin:20px">
-Passwords are generated on the fly while typing the seed and not stored anywhere.
-</p>
-<p style="font-size:1.6rem;margin:20px">
-Disclaimer: Use this tool with caution. It is far from perfect and password security should never be based on work-in-progress utilities.
-</p>
-<p style="font-size:1.6rem;margin:20px">
-Feel free to send your bug reports and suggestions to me:
+Contact me to report bugs or ideas:
 </p>
 <p style="margin:20px">
 <a class="recommend" role="button" href="mailto:pancake@nopcode.org">Contact author</a>

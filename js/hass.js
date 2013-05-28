@@ -1,17 +1,18 @@
+function E_(x) {
+	return document.getElementById(x);
+}
+
 function setAlgorithm() {
-	function e(x) { return document.getElementById (x); }
-	var x = e ("algorithm_label");
-	e ("algorithm").innerHTML = x.options[x.selectedIndex].value;
+	var x = E_ ("algo_options");
+	E_ ("algo").innerHTML = x.options[x.selectedIndex].value;
 }
 function setFrom() {
-	function e(x) { return document.getElementById (x); }
-	var x = e ("chop_from");
-	e ("label_from").innerHTML = x.options[x.selectedIndex].value;
+	var x = E_ ("from_options");
+	E_ ("from").innerHTML = x.options[x.selectedIndex].value;
 }
 function setLength() {
-	function e(x) { return document.getElementById (x); }
-	var x = e ("length");
-	e ("length_label").innerHTML = x.options[x.selectedIndex].value;
+	var x = E_ ("length_options");
+	E_ ("length").innerHTML = x.options[x.selectedIndex].value;
 }
 
 function init() {
@@ -19,29 +20,24 @@ function init() {
 }
 
 function set(x,y) {
-	document.getElementById(x).value = y;
-	var algo = document.getElementById(x)
-		for (var i=0; i< algo.length; i++) {
-			if (algo[i].value == y)
-				algo[i].selected = true;
-		}
+	var algo = E_(x);
+	algo.value = y;
+	for (var i=0; i<algo.length; i++) {
+		if (algo[i].value == y)
+			algo[i].selected = true;
+	}
 }
 
 function getCookie() {
-	var c = "";
-	if (localStorage) {
-		c = localStorage.getItem("cookie");
-	} else {
-		c = document.cookie;
-	}
+	var c = localStorage? localStorage.getItem ('cookie'): document.cookie;
 	if (!c) return;
 	var ca = c.split(';');
 	var ca = ca[0].split(',');
 	for (var i=0;i<ca.length; i++) {
 		var kv = ca[i].split('=');
 		if (kv[1].charAt(0)=='.') {
-			var b = document.getElementById(kv[0]);
-			if (b) b.setAttribute ('toggled', kv[1].substring(1));
+			var b = E_(kv[0]);
+			if (b) b.checked = (kv[1] == ".true");
 		} else {
 			set (kv[0], kv[1]);
 		}
@@ -50,25 +46,30 @@ function getCookie() {
 
 function get(x) {
 	// TODO: filter ,;=
-	var v = document.getElementById(x).value;
+	var v = E_(x);
+	if (!v) {
+		alert ("unknown "+x);
+		return undefined;
+	}
+	v = v.value? v.value: v.innerHTML;
 	if (v.indexOf (",") != -1 || v.indexOf (";")!=-1 || v.indexOf ("=") != -1) {
 		alert ("Invalid chars in "+x+" string ,;=");
 		v = v.replace (/[,;=]*/g,"");
-		document.getElementById(x).value = v;
+		E_(x).value = v;
 	}
 	return v;
 }
 
 function getb(x) {
-	var b = document.getElementById(x)
-		if (b) return "."+(b.getAttribute('toggled')=="true");
+	var b = E_(x);
+	if (b) return "."+b.checked; //getAttribute('toggled')=="true");
 	return ".false";
 }
 
 function setCookie() {
 	var cookie =
 		"from="+get("from")+","+
-		"lenn="+get("lenn")+","+
+		"length="+get("length")+","+
 		"salt="+get("salt")+","+
 		"algo="+get("algo")+","+
 		"dark="+getb("dark")+","+
@@ -77,12 +78,13 @@ function setCookie() {
 		"variable="+getb("variable")
 		;
 	if (localStorage)
-		localStorage.setItem("cookie", cookie);
+		localStorage.setItem ("cookie", cookie);
 	else document.cookie = cookie;
 	history.go(-1);
 	window.location.reload()
 }
 
+/* doesnt works and it's insecure */
 function copy_to_clipboard(text) {
 	if (window.clipboardData) {
 		window.clipboardData.setData('text', text);
@@ -101,7 +103,7 @@ function copy_to_clipboard(text) {
 } 
 
 function randomString() {
-	return ""+Math.random()*0xfffffff;
+	return ''+Math.random()*0xfffffff;
 }
 
 function pronunciableChar (o, i, x) {
@@ -126,43 +128,35 @@ function pronunciableChar (o, i, x) {
 
 function pronunciable(x) {
 	var y = "";
-	for (i=0; i<x.length; i++) {
+	for (var i=0; i<x.length; i++)
 		y += pronunciableChar (x.charCodeAt(i+1), i, x.charCodeAt(i));
-	}
 	return y
 }
 
 function sumArray(x) {
 	var r = 0;
-	for (i=0;i<x.length;i++) {
+	for (var i=0; i<x.length; i++)
 		r += (r^x[i]);
-	}
 	return r;
 }
 
 function clearPass() {
-	// window.scroll(0, 74);
-	document.getElementById('pass').value = 
-		document.getElementById('result').innerHTML = 
-		document.getElementById('result2').innerHTML = "";
+	E_('pass').value = E_('result').innerHTML = E_('result2').innerHTML = "";
 }
 
 function generateRandomHash() {
-	document.getElementById('pass').value = randomString();
-	generateHash();
-	document.getElementById('pass').value = "";
-}
-
-function E_(x) {
-	return document.getElementById(x);
+	var pass = E_('pass');
+	pass.value = randomString ();
+	generateHash ();
+	pass.value = '';
 }
 
 function generateHash() {
-	var algo = E_('algorithm').innerHTML;
+	var algo = E_('algo').innerHTML;
 	var salt = E_('salt').value;
 	var pass = E_('pass').value;
-	var from = +E_('label_from').innerHTML;
-	var lenn = +E_('length_label').innerHTML;
+	var from = +E_('from').innerHTML;
+	var lenn = +E_('length').innerHTML;
 	var binmode = E_('binmode').checked;
 	//var randpass = document.getElementById('randpass').getAttribute ('toggled') == "true";
 	var copyclip = false; //document.getElementById('copyclip').getAttribute ('toggled') == "true";
@@ -203,10 +197,9 @@ function generateHash() {
 	var foo = "";
 	if (binmode) {
 		function HexToBinArray(x) {
-			x = x.match (/../g)
-				for (i=0;i<x.length;i++) {
-					x[i] = parseInt (x[i], 16)
-				}
+			x = x.match (/../g);
+			for (var i=0;i<x.length;i++)
+				x[i] = parseInt (x[i], 16)
 			return x
 		}
 		result = HexToBinArray (result)
@@ -215,11 +208,10 @@ function generateHash() {
 		foo = Base64.encode(result);
 	}
 	foo = foo.replace(/[=Il10O]*/g, "");
-	if (pronunci) {
+	if (pronunci)
 		foo = pronunciable (foo);
-	}
 	if (variable) {
-		from = sumArray(foo.match(/./g))%4;
+		from = sumArray (foo.match(/./g))%4;
 		if (lenn>0) {
 			foo = foo.substring(from, from+lenn);
 		} else {

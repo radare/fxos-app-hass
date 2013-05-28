@@ -43,7 +43,7 @@ section[role="region"] {
 
 section[role="region"] {
   transform: translateX(+100%);
-  transition: transform .4s ease;
+  /* transition: transform .4s ease; */
 }
 section[role="region"].peek {
   transition: transform 1ms linear;

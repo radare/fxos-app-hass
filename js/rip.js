@@ -563,7 +563,6 @@ window.addEventListener('load', function loadSettings() {
   window.addEventListener('change', Settings);
 
   Settings.init();
-  handleRadioAndCardState();
 
   setTimeout(function() {
     var scripts = [
@@ -707,6 +706,8 @@ window.addEventListener('load', function loadSettings() {
           return;
 
         oldPanel.addEventListener('transitionend', function onTransitionEnd() {
+          //alert ("trans");
+          clearPass ();
           oldPanel.removeEventListener('transitionend', onTransitionEnd);
           switch (newPanel.id) {
             case 'about-licensing':
@@ -723,55 +724,6 @@ window.addEventListener('load', function loadSettings() {
     });
   }
 
-  function handleRadioAndCardState() {
-    function updateDataSubpanelItem(disabled) {
-      var item = document.getElementById('data-connectivity');
-      var link = document.getElementById('menuItem-cellularAndData');
-      if (!item || !link)
-        return;
-
-      if (disabled) {
-        item.classList.add('carrier-disabled');
-        link.onclick = function() { return false; };
-      } else {
-        item.classList.remove('carrier-disabled');
-        link.onclick = null;
-      }
-    }
-
-    function updateCallSubpanelItem(disabled) {
-      var item = document.getElementById('call-settings');
-      var link = document.getElementById('menuItem-callSettings');
-      if (!item || !link)
-        return;
-
-      if (disabled) {
-        item.classList.add('call-settings-disabled');
-        link.onclick = function() { return false; };
-      } else {
-        item.classList.remove('call-settings-disabled');
-        link.onclick = null;
-      }
-    }
-
-    var key = 'ril.radio.disabled';
-
-    var settings = Settings.mozSettings;
-    if (!settings)
-      return;
-
-    var req = settings.createLock().get(key);
-    req.onsuccess = function() {
-      var value = req.result[key];
-      updateDataSubpanelItem(value);
-      updateCallSubpanelItem(value);
-    };
-    settings.addObserver(key, function(evt) {
-      updateDataSubpanelItem(evt.settingValue);
-      updateCallSubpanelItem(evt.settingValue);
-    });
-  }
-
   // startup
   window.addEventListener('hashchange', showPanel);
   switch (window.location.hash) {
@@ -782,31 +734,9 @@ window.addEventListener('load', function loadSettings() {
       document.location.hash = 'root';
       break;
     default:
-      document.getElementById('root').className = 'previous';
+      E_('root').className = 'previous';
       showPanel();
       break;
-  }
-});
-
-// back button = close dialog || back to the root page
-// + prevent the [Return] key to validate forms
-window.addEventListener('keydown', function handleSpecialKeys(event) {
-  if (document.location.hash != '#root' &&
-      event.keyCode === event.DOM_VK_ESCAPE) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    var dialog = document.querySelector('#dialogs .active');
-    if (dialog) {
-      dialog.classList.remove('active');
-      document.body.classList.remove('dialog');
-    } else {
-      document.location.hash = '#root';
-    }
-  } else if (event.keyCode === event.DOM_VK_RETURN) {
-    event.target.blur();
-    event.stopPropagation();
-    event.preventDefault();
   }
 });
 
