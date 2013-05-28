@@ -153,7 +153,9 @@ function generateRandomHash() {
 	document.getElementById('pass').value = "";
 }
 
-var E_ = document.getElementById;
+function E_(x) {
+	return document.getElementById(x);
+}
 
 function generateHash() {
 	var algo = E_('algorithm').innerHTML;
@@ -161,15 +163,13 @@ function generateHash() {
 	var pass = E_('pass').value;
 	var from = +E_('label_from').innerHTML;
 	var lenn = +E_('length_label').innerHTML;
-	var binmode = E_('binmode').getAttribute ('toggled') == "true";
+	var binmode = E_('binmode').checked;
 	//var randpass = document.getElementById('randpass').getAttribute ('toggled') == "true";
 	var copyclip = false; //document.getElementById('copyclip').getAttribute ('toggled') == "true";
-	var pronunci = E_('pronunciable').getAttribute ('toggled') == "true";
-	var variable = E_('variable').getAttribute ('toggled') == "true";
+	var pronunci = E_('pronunciable').checked;
+	var variable = E_('variable').checked;
 	var hash = salt + pass;
 	//		if (randpass) { hash = salt+randomString() }
-alert ("pronunciable "+pronunci);
-alert ("variable "+variable);
 	if (pass == "") {
 		E_('result').innerHTML = "";
 		E_('result2').innerHTML = "";
