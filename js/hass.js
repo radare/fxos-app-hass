@@ -52,7 +52,7 @@ function get(x) {
 	// TODO: filter ,;=
 	var v = document.getElementById(x).value;
 	if (v.indexOf (",") != -1 || v.indexOf (";")!=-1 || v.indexOf ("=") != -1) {
-		alert("Invalid chars in "+x+" string ,;=");
+		alert ("Invalid chars in "+x+" string ,;=");
 		v = v.replace (/[,;=]*/g,"");
 		document.getElementById(x).value = v;
 	}
@@ -123,6 +123,7 @@ function pronunciableChar (o, i, x) {
 	}
 	return x;
 }
+
 function pronunciable(x) {
 	var y = "";
 	for (i=0; i<x.length; i++) {
@@ -152,22 +153,26 @@ function generateRandomHash() {
 	document.getElementById('pass').value = "";
 }
 
+var E_ = document.getElementById;
+
 function generateHash() {
-	var algo = document.getElementById('algorithm').innerHTML;
-	var salt = document.getElementById('salt').value;
-	var pass = document.getElementById('pass').value;
-	var from = +document.getElementById('label_from').innerHTML;
-	var lenn = +document.getElementById('length_label').innerHTML;
-	var binmode = document.getElementById('binmode').getAttribute ('toggled') == "true";
+	var algo = E_('algorithm').innerHTML;
+	var salt = E_('salt').value;
+	var pass = E_('pass').value;
+	var from = +E_('label_from').innerHTML;
+	var lenn = +E_('length_label').innerHTML;
+	var binmode = E_('binmode').getAttribute ('toggled') == "true";
 	//var randpass = document.getElementById('randpass').getAttribute ('toggled') == "true";
 	var copyclip = false; //document.getElementById('copyclip').getAttribute ('toggled') == "true";
-	var pronunci = document.getElementById('pronunciable').getAttribute ('toggled') == "true";
-	var variable = document.getElementById('variable').getAttribute ('toggled') == "true";
+	var pronunci = E_('pronunciable').getAttribute ('toggled') == "true";
+	var variable = E_('variable').getAttribute ('toggled') == "true";
 	var hash = salt + pass;
 	//		if (randpass) { hash = salt+randomString() }
+alert ("pronunciable "+pronunci);
+alert ("variable "+variable);
 	if (pass == "") {
-		document.getElementById('result').innerHTML = "";
-		document.getElementById('result2').innerHTML = "";
+		E_('result').innerHTML = "";
+		E_('result2').innerHTML = "";
 		return false;
 	}
 
@@ -211,27 +216,24 @@ function generateHash() {
 	}
 	foo = foo.replace(/[=Il10O]*/g, "");
 	if (pronunci) {
-		foo = pronunciable(foo);
+		foo = pronunciable (foo);
 	}
 	if (variable) {
 		from = sumArray(foo.match(/./g))%4;
 		if (lenn>0) {
 			foo = foo.substring(from, from+lenn);
 		} else {
-			lenn = 5;
 			lenn = 5+(sumArray(foo.match(/./g))%lenn);
 			foo = foo.substring(from, from+lenn);
 		}
 	} else {
-		if (lenn)
-			foo = foo.substring(from, lenn);
-		else foo = foo.substring(from);
+		foo = foo.substring(from, lenn?lenn:undefined);
 	}
 	if (copyclip) {
 		copy_to_clipboard (foo)
 			alert ("Password is now in clipboard!")
 	} else {
-		document.getElementById('result').innerHTML = foo;
-		document.getElementById('result2').innerHTML = foo;
+		E_('result').innerHTML = foo;
+		E_('result2').innerHTML = foo;
 	}
 }

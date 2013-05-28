@@ -15,11 +15,11 @@ files:
 missing:
 	@grep 404 log|cut -d ' ' -f 3|cut -d / -f 4-
 
-FILES=`cd package ; make -s files`
-FILES+=$(shell cd .. ; ls icon*.png)
+FILES=`make -s files`
+FILES+=$(shell ls icon*.png)
 FILES+=manifest.webapp
 FILES+=index.html
 
 pack zip package:
-	rm -f ../${PKGNAME}.zip
-	cd .. ; zip ${PKGNAME}.zip ${FILES}
+	rm -f ${PKGNAME}.zip
+	zip ${PKGNAME}.zip ${FILES}
