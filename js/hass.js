@@ -74,7 +74,7 @@ function setCookie() {
 		"algo="+get("algo")+","+
 		"dark="+getb("dark")+","+
 		"binmode="+getb("binmode")+","+
-		"pronunci="+getb("pronunci")+","+
+		"pronunciable="+getb("pronunciable")+","+
 		"variable="+getb("variable")
 		;
 	if (localStorage)
@@ -136,7 +136,7 @@ function pronunciable(x) {
 function sumArray(x) {
 	var r = 0;
 	for (var i=0; i<x.length; i++)
-		r += (r^x[i]);
+		r += (r^x[i].charCodeAt());
 	return r;
 }
 
@@ -165,8 +165,7 @@ function generateHash() {
 	var hash = salt + pass;
 	//		if (randpass) { hash = salt+randomString() }
 	if (pass == "") {
-		E_('result').innerHTML = "";
-		E_('result2').innerHTML = "";
+		E_('result').innerHTML = E_('result2').innerHTML = '';
 		return false;
 	}
 
@@ -185,6 +184,10 @@ function generateHash() {
 			break;
 		case "sha1":
 			result = Sha1.hash(hash);
+			break;
+		case "sha1(md5)":
+			result = MD5(hash);
+			result = Sha1.hash(result+hash);
 			break;
 		case "sha1^2":
 			result = Sha1.hash(hash);
@@ -211,19 +214,20 @@ function generateHash() {
 	if (pronunci)
 		foo = pronunciable (foo);
 	if (variable) {
-		from = sumArray (foo.match(/./g))%4;
-		if (lenn>0) {
-			foo = foo.substring(from, from+lenn);
+		const m = 4;
+		var sum = sumArray (foo.match (/./g))%m;
+		if (sum>m) {
+			foo = foo.substring (from, from+sum);
 		} else {
-			lenn = 5+(sumArray(foo.match(/./g))%lenn);
-			foo = foo.substring(from, from+lenn);
+			lenn = 5+(sumArray (foo.match(/./g))%(lenn-m));
+			foo = foo.substring (from, from+lenn);
 		}
 	} else {
-		foo = foo.substring(from, lenn?lenn:undefined);
+		foo = foo.substring (from, lenn? lenn: undefined);
 	}
 	if (copyclip) {
-		copy_to_clipboard (foo)
-			alert ("Password is now in clipboard!")
+		copy_to_clipboard (foo);
+		alert ("Password is now in clipboard!")
 	} else {
 		E_('result').innerHTML = foo;
 		E_('result2').innerHTML = foo;

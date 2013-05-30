@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html style="overflow: hidden !important">
+<html style="overflow: hidden !important" manifest="main.manifest">
   <head>
     <meta charset="utf-8"/>
-    <meta http-equiv="pragma" content="no-cache"/>
+    <script defer src="js/hass.js"></script>
     <title>Hass</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=false" />
 
@@ -28,7 +28,6 @@
 
     <!-- Specific code -->
     <script defer src="js/rip.js"></script>
-    <script defer src="js/hass.js"></script>
     <script defer src="js/install.js"></script>
   <script type="application/x-javascript" src="js/crc32.js"></script>
   <script type="application/x-javascript" src="js/md5.js"></script>
@@ -98,6 +97,7 @@
 		<option selected value="md5">md5</option>
 		<option value="md5^2">md5^2</option>
 		<option value="sha1">sha1</option>
+		<option value="sha1(md5)">sha1(md5)</option>
 		<option value="sha1^2">sha1^2</option>
 		<option value="crc32">crc32^3</option>
 	      </select>
@@ -121,7 +121,7 @@
               <span></span>
             </label>
             <small id="deviceInfo-msisdn"></small>
-            <span data-l10n-id="deviceInfo-MSISDN"> Variable length </span>
+            <span data-l10n-id="variable-length"> Variable length </span>
           </li>
           <li>
             <p data-l10n-id="From">From</p>

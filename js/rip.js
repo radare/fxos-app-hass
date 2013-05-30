@@ -747,10 +747,12 @@ window.addEventListener('localized', function showLanguages() {
   document.documentElement.dir = navigator.mozL10n.language.direction;
 
   // display the current locale in the main panel
+  /*
   Settings.getSupportedLanguages(function displayLang(languages) {
     document.getElementById('language-desc').textContent =
         languages[navigator.mozL10n.language.code];
   });
+  */
   Settings.updateLanguagePanel();
 });
 
@@ -758,6 +760,6 @@ window.addEventListener('localized', function showLanguages() {
 // possible in startup.
 Settings.preInit();
 
-if (MouseEventShim)
-  MouseEventShim.trackMouseMoves = false;
+//if (MouseEventShim)
+ // MouseEventShim.trackMouseMoves = false;
 

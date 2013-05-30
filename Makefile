@@ -1,10 +1,15 @@
 PKGNAME=hass
 M=@${MAKE} -s
 
-all: pack
+all: pack manifest
 
 urls:
 	@cat log | awk '{print $$3}'
+
+manifest:
+	@echo CACHE MANIFEST > main.manifest
+	@echo '# v0.1' >> main.manifest
+	${M} files >> main.manifest
 
 domains:
 	${M} -s urls | cut -d / -f 3 | sort -u
