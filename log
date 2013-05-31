@@ -1,4 +1,5 @@
-[00:50:40.258] GET http://hass.ffos.lolcathost.org/#about [HTTP/1.1 200 OK 318ms]
+[00:50:40.258] GET http://hass.ffos.lolcathost.org/index.js [HTTP/1.1 200 OK 318ms]
+[00:50:40.258] GET http://hass.ffos.lolcathost.org/index.html [HTTP/1.1 200 OK 318ms]
 [00:50:40.658] GET http://hass.ffos.lolcathost.org/shared/style/headers.css [HTTP/1.1 200 OK 160ms]
 [00:50:40.659] GET http://hass.ffos.lolcathost.org/shared/style/switches.css [HTTP/1.1 200 OK 316ms]
 [00:50:40.661] GET http://hass.ffos.lolcathost.org/shared/style/input_areas.css [HTTP/1.1 200 OK 331ms]
