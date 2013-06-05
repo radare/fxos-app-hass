@@ -16,6 +16,7 @@ domains:
 
 files:
 	${M} -s urls | cut -d / -f 4- | grep -v '^#'
+	@echo main.manifest
 
 missing:
 	@grep 404 log|cut -d ' ' -f 3|cut -d / -f 4-

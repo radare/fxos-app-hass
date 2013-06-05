@@ -353,23 +353,6 @@ var Settings = {
           } else {
             spanFields[i].textContent = result[key];
           }
-        } else { // result[key] is undefined
-          switch (key) {
-            //XXX bug 816899 will also provide 'deviceinfo.software' from Gecko
-            //  which is {os name + os version}
-            case 'deviceinfo.software':
-              var _ = navigator.mozL10n.get;
-              var text = _('brandShortName') + ' ' +
-                result['deviceinfo.os'];
-              spanFields[i].textContent = text;
-              break;
-
-            //XXX workaround request from bug 808892 comment 22
-            //  hide this field if it's undefined/empty.
-            case 'deviceinfo.firmware_revision':
-              spanFields[i].parentNode.hidden = true;
-              break;
-          }
         }
       }
     });
@@ -590,63 +573,9 @@ window.addEventListener('load', function loadSettings() {
     Settings.loadPanel(panel);
 
     // panel-specific initialization tasks
-    switch (panel.id) {
-      case 'display':             // <input type="range"> + brightness control
-        bug344618_polyfill();     // XXX to be removed when bug344618 is fixed
-        var manualBrightness = panel.querySelector('#brightness-manual');
-        var autoBrightnessSetting = 'screen.automatic-brightness';
-        var settings = Settings.mozSettings;
-        if (!settings)
-          return;
-        settings.addObserver(autoBrightnessSetting, function(event) {
-          manualBrightness.hidden = event.settingValue;
-        });
-        var req = settings.createLock().get(autoBrightnessSetting);
-        req.onsuccess = function brightness_onsuccess() {
-          manualBrightness.hidden = req.result[autoBrightnessSetting];
-        };
-        break;
-      case 'sound':               // <input type="range">
-        bug344618_polyfill();     // XXX to be removed when bug344618 is fixed
-        break;
-      case 'languages':           // fill language selector
-        var langSel = document.querySelector('select[name="language.current"]');
-        langSel.innerHTML = '';
-        Settings.getSupportedLanguages(function fillLanguageList(languages) {
-          for (var lang in languages) {
-            var option = document.createElement('option');
-            option.value = lang;
-            // Right-to-Left (RTL) languages:
-            // (http://www.w3.org/International/questions/qa-scripts)
-            // Arabic, Hebrew, Farsi, Pashto, Urdu
-            var rtlList = ['ar', 'he', 'fa', 'ps', 'ur'];
-            // Use script direction control-characters to wrap the text labels
-            // since markup (i.e. <bdo>) does not work inside <option> tags
-            // http://www.w3.org/International/tutorials/bidi-xhtml/#nomarkup
-            var lEmbedBegin =
-                (rtlList.indexOf(lang) >= 0) ? '&#x202B;' : '&#x202A;';
-            var lEmbedEnd = '&#x202C;';
-            // The control-characters enforce the language-specific script
-            // direction to correctly display the text label (Bug #851457)
-            option.innerHTML = lEmbedBegin + languages[lang] + lEmbedEnd;
-            option.selected = (lang == document.documentElement.lang);
-            langSel.appendChild(option);
-          }
-        });
-        setTimeout(Settings.updateLanguagePanel);
-        break;
-      case 'mediaStorage':        // full media storage status + panel startup
-        MediaStorage.initUI();
-        break;
-      case 'deviceStorage':       // full device storage status
-        AppStorage.update();
-        break;
-      case 'battery':             // full battery status
-        Battery.update();
-        break;
-    }
 
     // preset all inputs in the panel and subpanels.
+    //alert ("presetn all panel");
     for (var i = 0; i < subPanels.length; i++) {
       Settings.presetPanel(subPanels[i]);
     }
@@ -658,15 +587,12 @@ window.addEventListener('load', function loadSettings() {
   function showPanel() {
     var hash = window.location.hash;
 
-    if (hash === '#wifi') {
-      PerformanceTestingHelper.dispatch('start');
-    }
-
     var oldPanel = document.querySelector(oldHash);
     var newPanel = document.querySelector(hash);
+    //alert ("show panel");
 
     // load panel (+ dependencies) if necessary -- this should be synchronous
-    lazyLoad(newPanel);
+    //lazyLoad(newPanel);
 
     // switch previous/current/forward classes
     // FIXME: The '.peek' is here to avoid an ugly white
@@ -692,6 +618,7 @@ window.addEventListener('load', function loadSettings() {
     window.addEventListener('transitionend', function paintWait() {
       window.removeEventListener('transitionend', paintWait);
 
+          clearPass ();
       // We need to wait for the next tick otherwise gecko gets confused
       setTimeout(function nextTick() {
         oldPanel.classList.remove('peek');
@@ -747,8 +674,8 @@ window.addEventListener('localized', function showLanguages() {
   document.documentElement.dir = navigator.mozL10n.language.direction;
 
   // display the current locale in the main panel
-  /*
-  Settings.getSupportedLanguages(function displayLang(languages) {
+/*
+Settings.getSupportedLanguages(function displayLang(languages) {
     document.getElementById('language-desc').textContent =
         languages[navigator.mozL10n.language.code];
   });

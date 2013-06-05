@@ -222,16 +222,10 @@
 Hass: password generation tool
 </p>
 <p style="font-size:1.6rem;margin:20px;text-align:justify">
-Hass is not only a password generation tool. It aims to define good password practices. Using an easy-to-remember token (like hostname) and a given setup we will be rewarded with a password generated based on this input.
+Hass is not only a password generation tool. It aims to define good password practices. Using an easy-to-remember token (like hostname) and a given setup it will generate a predictible password based on user input. In addition, you may prefix/infix/suffix other easy to remember tokens to it.
 </p>
 <p style="font-size:1.6rem;margin:20px;text-align:justify">
-Another good practice consists in adding an easy to remember prefix/infix/suffix to the final generated password.
-</p>
-<p style="font-size:1.6rem;margin:20px;text-align:justify">
-Passwords are not stored anywhere. Only the configuration, under user decision.
-</p>
-<p style="font-size:1.6rem;margin:20px">
-Contact me to report bugs or ideas:
+The only sensitive information saved in localStorage is the configuration. Passwords are just hashed on the fly.
 </p>
 <p style="margin:20px">
 <a class="recommend" role="button" href="mailto:pancake@nopcode.org">Contact author</a>
@@ -249,6 +243,13 @@ Contact me to report bugs or ideas:
         <h1 data-l10n-id="hass"> Hass </h1>
       </header>
 
+<script>
+function showRandom() {
+	var about = document.getElementById (priv);
+	about.style=visibility = "hidden";
+}
+</script>
+
       <!-- Main :: Network & Connectivity -->
       <div>
         <ul>
@@ -258,7 +259,7 @@ Contact me to report bugs or ideas:
           </li>
           <li>
             <small id="bluetooth-desc" class="menu-item-desc"></small>
-            <a id="menuItem-deviceStorage" class="menu-item" href="#random" data-l10n-id="random">Random</a>
+            <a id="menuItem-deviceStorage" class="menu-item" onclick='showRandom();' href="#random" data-l10n-id="random">Random</a>
           </li>
           <li>
             <small id="bluetooth-desc" class="menu-item-desc"></small>
