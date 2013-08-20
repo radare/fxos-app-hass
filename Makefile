@@ -3,6 +3,10 @@ M=@${MAKE} -s
 
 all: one pack manifest
 
+node_modules/.bin/uglifyjs:
+	mkdir -p node_modules
+	npm install uglify-js
+
 urls:
 	@cat log | awk '{print $$3}'
 
@@ -22,11 +26,12 @@ missing:
 	@grep 404 log|cut -d ' ' -f 3|cut -d / -f 4-
 
 # npm install uglify-js
+U=../node_modules/.bin/uglifyjs
 
-one:
+one: node_modules/.bin/uglifyjs
 	rm -rf one
 	mkdir -p one
-	cd js; for a in *.js ; do echo " - $$a"; uglifyjs < $$a 2>/dev/null > ../one/$$a ; done
+	cd js; for a in *.js ; do echo " - $$a"; $U < $$a 2>/dev/null > ../one/$$a ; done
 	cd one ; cat *.js > ../index.js
 	rm -rf one
 .PHONY: one
