@@ -10,7 +10,7 @@ document.write('<button id="install">'+
   function install(ev) {
     ev.preventDefault();
     // define the manifest URL
-    var manifest_url = "http://hass.ffos.lolcathost.org/manifest.webapp.online";
+    var manifest_url = "http://hass.ffos.lolcathost.org/package.webapp";
     // install the app
     var myapp = navigator.mozApps.install(manifest_url);
     myapp.onsuccess = function(data) {

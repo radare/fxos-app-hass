@@ -15,9 +15,11 @@ function setLength() {
 	E_ ("length").innerHTML = x.options[x.selectedIndex].value;
 }
 
-function init() {
+function initHass() {
 	getCookie();
 }
+
+window.onload = initHass;
 
 function set(x,y) {
 	var algo = E_(x);
@@ -42,6 +44,9 @@ function getCookie() {
 			set (kv[0], kv[1]);
 		}
 	}
+	setFrom();
+	setLength();
+	setAlgorithm();
 }
 
 function get(x) {
@@ -68,10 +73,10 @@ function getb(x) {
 
 function setCookie() {
 	var cookie =
-		"from="+get("from")+","+
-		"length="+get("length")+","+
 		"salt="+get("salt")+","+
-		"algo="+get("algo")+","+
+		"from_options="+get("from_options")+","+
+		"length_options="+get("length_options")+","+
+		"algo_options="+get("algo_options")+","+
 		"dark="+getb("dark")+","+
 		"binmode="+getb("binmode")+","+
 		"pronunciable="+getb("pronunciable")+","+

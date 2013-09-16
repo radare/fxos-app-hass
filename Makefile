@@ -12,7 +12,7 @@ urls:
 
 manifest:
 	@echo CACHE MANIFEST > main.manifest
-	@echo '# v0.1' >> main.manifest
+	@echo '# v0.2' >> main.manifest
 	${M} files >> main.manifest
 
 domains:
@@ -27,11 +27,12 @@ missing:
 
 # npm install uglify-js
 U=../node_modules/.bin/uglifyjs
+JSFILES=base64.js hass.js md5.js sha1.js crc32.js rip.js
 
 one: node_modules/.bin/uglifyjs
 	rm -rf one
 	mkdir -p one
-	cd js; for a in *.js ; do echo " - $$a"; $U < $$a 2>/dev/null > ../one/$$a ; done
+	cd js; for a in ${JSFILES} ; do echo " - $$a"; $U < $$a 2>/dev/null > ../one/$$a ; done
 	cd one ; cat *.js > ../index.js
 	rm -rf one
 .PHONY: one
@@ -40,7 +41,8 @@ FILES=`make -s files`
 FILES+=$(shell ls icon*.png)
 FILES+=manifest.webapp
 FILES+=index.html
-SZ=$(shell du -b hass.zip |awk '{print $$1}')
+#SZ=$(shell du -b hass.zip |awk '{print $$1}')
+SZ=$(shell ls -l hass.zip | awk '{print $$5}')
 
 pack zip package:
 	rm -f ${PKGNAME}.zip

@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <script defer src="js/hass.js"></script>
     <title>Hass</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=false" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=false" />
 
     <!-- Common style -->
     <link rel="stylesheet" type="text/css" href="shared/style/headers.css"/>
@@ -37,7 +37,7 @@
   <script type="application/x-javascript" src="js/base64.js"></script>
 -->
   </head>
-  <body class="skin-organic uninit" style="overflow:hidden !important" onload="javascript:init()">
+  <body class="skin-organic uninit" style="overflow:hidden !important" onload="hassInit()">
 
     <section role="region" id="generate">
       <header>
@@ -46,8 +46,7 @@
       </header>
       <div>
         <ul>
-<p style="margin:20px;"
-	onclick="clearPass()" />
+<p style="margin:20px;" onclick="clearPass()" />
 <input placeholder="Password" id="pass" type="password"
 	onkeyup="generateHash()"
 	onclick="clearPass()"
@@ -107,11 +106,9 @@
             </p>
           </li>
           <li>
-<form>
- <p>
-<input placeholder="Salt" id="salt" type="text">
-</p>
-</form>
+            <form>
+              <p> <input placeholder="Salt" id="salt" type="text"> </p>
+            </form>
           </li>
         <header>
 <br /> <br />
@@ -245,8 +242,8 @@ The only sensitive information saved in localStorage is the configuration. Passw
 
 <script>
 function showRandom() {
-	var about = document.getElementById (priv);
-	about.style=visibility = "hidden";
+	var about = document.getElementById ('result2');
+	about.style.visibility = 'hidden';
 }
 </script>
 
