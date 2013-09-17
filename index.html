@@ -37,22 +37,20 @@
   <script type="application/x-javascript" src="js/base64.js"></script>
 -->
   </head>
-  <body class="skin-organic uninit" style="overflow:hidden !important" onload="hassInit()">
+  <body class="skin-organic uninit" style="overflow:hidden !important">
 
     <section role="region" id="generate">
       <header>
         <a href="#root"><span class="icon icon-back">back</span></a>
         <h1 data-l10n-id="generate"> Generate </h1>
       </header>
-      <div>
-        <ul>
+<div>
 <p style="margin:20px;" onclick="clearPass()" />
 <input placeholder="Password" id="pass" type="password"
 	onkeyup="generateHash()"
 	onclick="clearPass()"
 	onchange="generateHash()" />
 </p>
-          </li>
 <div>
 <center>
 <span class="hass" id="result"></span>
