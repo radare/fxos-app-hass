@@ -17,6 +17,19 @@ function setLength() {
 
 function initHass() {
 	getCookie();
+	E_('clearPass').onclick = clearPass;
+	E_('pass').onclick = clearPass;
+	E_('pass').onkeyup = generateHash;
+	E_('pass').onchange = generateHash;
+	E_('menuItem-showRandom').onclick = showRandom;
+	E_('algo_options').onchange = setAlgorithm;
+	E_('from_options').onchange = setFrom;
+	E_('length_options').onchange = setLength;
+	E_('saveButton').href = '#save';
+	E_('generateButton').onclick = function() {
+		generateRandomHash();
+return false;
+	}
 }
 
 window.onload = initHass;
@@ -146,7 +159,7 @@ function sumArray(x) {
 }
 
 function clearPass() {
-	E_('pass').value = E_('result').innerHTML = E_('result2').innerHTML = "";
+	E_('pass').value = E_('result').innerHTML = E_('result2').innerHTML = '';
 }
 
 function generateRandomHash() {
@@ -170,7 +183,7 @@ function generateHash() {
 	var hash = salt + pass;
 	//		if (randpass) { hash = salt+randomString() }
 	if (pass == "") {
-		E_('result').innerHTML = E_('result2').innerHTML = '';
+		clearPass ();
 		return false;
 	}
 
@@ -236,5 +249,6 @@ function generateHash() {
 	} else {
 		E_('result').innerHTML = foo;
 		E_('result2').innerHTML = foo;
+		E_('result2').style.visibility = "visible";
 	}
 }

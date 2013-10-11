@@ -547,17 +547,6 @@ window.addEventListener('load', function loadSettings() {
 
   Settings.init();
 
-  setTimeout(function() {
-    var scripts = [
-      'shared/js/mouse_event_shim.js',
-    ];
-    scripts.forEach(function attachScripts(src) {
-      var script = document.createElement('script');
-      script.src = src;
-      document.head.appendChild(script);
-    });
-  });
-
   // panel lazy-loading
   function lazyLoad(panel) {
     if (panel.children.length) // already initialized
@@ -587,17 +576,13 @@ window.addEventListener('load', function loadSettings() {
   function showPanel() {
     var hash = window.location.hash;
 
+    switch (hash) {
+    case '#save': setCookie (); return;
+    case '#random': generateRandomHash(); break;
+    }
     var oldPanel = document.querySelector(oldHash);
     var newPanel = document.querySelector(hash);
-    //alert ("show panel");
 
-    // load panel (+ dependencies) if necessary -- this should be synchronous
-    //lazyLoad(newPanel);
-
-    // switch previous/current/forward classes
-    // FIXME: The '.peek' is here to avoid an ugly white
-    // flickering when transitioning (gecko 18)
-    // the forward class helps us 'peek' in the right direction
     oldPanel.className = newPanel.className ? 'peek' : 'peek previous forward';
     newPanel.className = newPanel.className ?
                            'current peek' : 'peek current forward';
@@ -633,6 +618,10 @@ window.addEventListener('load', function loadSettings() {
           return;
 
         oldPanel.addEventListener('transitionend', function onTransitionEnd() {
+// go back to main menu here
+		E_('pass').value =
+		E_('result').innerHTML = 
+		E_('result2').innerHTML = '';
           //alert ("trans");
           clearPass ();
           oldPanel.removeEventListener('transitionend', onTransitionEnd);

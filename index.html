@@ -45,11 +45,8 @@
         <h1 data-l10n-id="generate"> Generate </h1>
       </header>
 <div>
-<p style="margin:20px;" onclick="clearPass()" />
-<input placeholder="Password" id="pass" type="password"
-	onkeyup="generateHash()"
-	onclick="clearPass()"
-	onchange="generateHash()" />
+<p style="margin:20px;" id="clearPass" />
+<input placeholder="Password" id="pass" type="password" />
 </p>
 <div>
 <center>
@@ -67,8 +64,8 @@
       </header>
       <div>
         <ul>
- <p style="margin:20px;">
-<a class="recommend" role="button" href="javascript:generateRandomHash()">Generate</a>
+<p style="margin:20px;">
+<a class="recommend" role="button" id="generateButton" href="#">Generate</a>
 </p>
 <div>
 <center>
@@ -93,7 +90,7 @@
             <p data-l10n-id="To">Algorithm</p>
             <p class="fake-select">
               <button id="algo" class="icon icon-dialog">md5</button>
-	      <select id="algo_options" onchange="setAlgorithm()">
+	      <select id="algo_options">
 		<option selected value="md5">md5</option>
 		<option value="md5^2">md5^2</option>
 		<option value="sha1">sha1</option>
@@ -125,7 +122,7 @@
             <p data-l10n-id="From">From</p>
             <p class="fake-select">
               <button id="from" class="icon icon-dialog">0</button>
-	      <select id="from_options" onchange="setFrom()">
+	      <select id="from_options">
 		<option selected value="0">0</option>
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -150,7 +147,7 @@
             <p data-l10n-id="Length">Length</p>
             <p class="fake-select">
               <button id="length" class="icon icon-dialog">7</button>
-	      <select id="length_options" onchange="setLength()">
+	      <select id="length_options">
 		<option value="1">1</option>
 		<option value="2">2</option>
 		<option value="3">3</option>
@@ -192,11 +189,10 @@
             <small id="deviceInfo-msisdn"></small>
             <span data-l10n-id="deviceInfo-MSISDN"> Pronunciable </span>
           </li>
-<p style="margin:20px;">
-<a class="recommend" role="button" href="javascript:setCookie()">Save</a>
-<br />
-<br />
-</p>
+          <p style="margin:20px;">
+            <a class="recommend" role="button" id="saveButton">Save</a>
+            <br /> <br />
+          </p>
         </ul>
       </div>
     </section>
@@ -210,7 +206,7 @@
    <ul>
 <br />
 <center>
-<img src="/icon128.png" />
+<img src="icon128.png" />
 <br />
 </center>
 <p style="font-size:1.6rem;margin:20px;text-align:justify">
@@ -254,7 +250,7 @@ function showRandom() {
           </li>
           <li>
             <small id="bluetooth-desc" class="menu-item-desc"></small>
-            <a id="menuItem-deviceStorage" class="menu-item" onclick='showRandom();' href="#random" data-l10n-id="random">Random</a>
+            <a id="menuItem-showRandom" class="menu-item" href="#random" data-l10n-id="random">Random</a>
           </li>
           <li>
             <small id="bluetooth-desc" class="menu-item-desc"></small>
