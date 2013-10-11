@@ -207,6 +207,8 @@
 
     // load the specified resource file
     function loadResource(url, onSuccess, onFailure, asynchronous) {
+// do not load anything. csp cries otherwise
+/*
       onSuccess = onSuccess || function _onSuccess(data) {};
       onFailure = onFailure || function _onFailure() {
         consoleWarn(url + ' not found.');
@@ -236,6 +238,7 @@
       } catch (e) {
         onFailure();
       }
+*/
     }
 
     // load and parse l10n data (warning: global variables are used here)
@@ -999,6 +1002,7 @@
     // this can be used to prevent race conditions
     get readyState() { return gReadyState; },
     ready: function l10n_ready(callback) {
+/*
       if (!callback) {
         return;
       } else if (gReadyState == 'complete' || gReadyState == 'interactive') {
@@ -1006,6 +1010,7 @@
       } else {
         window.addEventListener('localized', callback);
       }
+*/
     }
   };
 

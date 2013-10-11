@@ -252,3 +252,8 @@ function generateHash() {
 		E_('result2').style.visibility = "visible";
 	}
 }
+
+function showRandom() {
+	var about = document.getElementById ('result2');
+	about.style.visibility = 'hidden';
+}

@@ -136,11 +136,12 @@ var Settings = {
       if (document.head.querySelector('script[src="' + src + '"]')) {
         continue;
       }
-
+/*
       var script = document.createElement('script');
       script.type = 'application/javascript';
       script.src = src;
       document.head.appendChild(script);
+*/
     }
 
     // activate all stylesheets
@@ -374,9 +375,9 @@ var Settings = {
         }
 
         // Go to that section
-        setTimeout(function settings_goToSection() {
+        //setTimeout(function settings_goToSection() {
           document.location.hash = section;
-        });
+        //});
         break;
     }
   },
