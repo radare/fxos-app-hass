@@ -3,6 +3,10 @@
  * note: `lists.css' must be loaded before this stylesheet
  */
 
+h1 {
+  user-select: none;
+}
+
 html, body {
   margin: 0;
   padding: 0;

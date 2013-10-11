@@ -540,6 +540,10 @@ var Settings = {
   }
 };
 
+function selectInput() {
+  E_('pass').focus ();
+}
+
 // apply user changes to 'Settings' + panel navigation
 window.addEventListener('load', function loadSettings() {
   window.removeEventListener('load', loadSettings);
@@ -578,6 +582,7 @@ window.addEventListener('load', function loadSettings() {
 
     switch (hash) {
     case '#save': setCookie (); return;
+    case '#generate': selectInput(); break;
     case '#random': generateRandomHash(); break;
     }
     var oldPanel = document.querySelector(oldHash);

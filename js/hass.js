@@ -28,7 +28,7 @@ function initHass() {
 	E_('saveButton').href = '#save';
 	E_('generateButton').onclick = function() {
 		generateRandomHash();
-return false;
+		return false;
 	}
 }
 
