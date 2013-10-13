@@ -30,6 +30,7 @@ function initHass() {
 		generateRandomHash();
 		return false;
 	}
+	handleGestures ();
 }
 
 window.onload = initHass;
@@ -159,7 +160,9 @@ function sumArray(x) {
 }
 
 function clearPass() {
-	E_('pass').value = E_('result').innerHTML = E_('result2').innerHTML = '';
+	E_('pass').value =
+	E_('result').innerHTML =
+	E_('result2').innerHTML = '';
 }
 
 function generateRandomHash() {

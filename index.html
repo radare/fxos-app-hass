@@ -4,9 +4,11 @@
     <meta charset="utf-8"/>
     <script defer src="js/hass.js"></script>
     <title>Hass</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=false" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
 
     <!-- Common style -->
+    <link rel="stylesheet" type="text/css" href="shared/style/buttons.css"/>
+    <link rel="stylesheet" type="text/css" href="style/updates.css"/>
     <link rel="stylesheet" type="text/css" href="shared/style/headers.css"/>
     <link rel="stylesheet" type="text/css" href="shared/style/switches.css"/>
     <link rel="stylesheet" type="text/css" href="shared/style/input_areas.css">
@@ -37,11 +39,11 @@
   <script type="application/x-javascript" src="js/base64.js"></script>
 -->
   </head>
-  <body class="skin-organic uninit" style="overflow:hidden !important">
+  <body class="skin-organic uninit" style="overflow:hidden !important" id="body">
 
-    <section role="region" id="generate">
+    <section role="region" id="r_generate">
       <header>
-        <a href="#root"><span class="icon icon-back">back</span></a>
+        <a href="#r_root"><span class="icon icon-back">back</span></a>
         <h1 data-l10n-id="generate"> Generate </h1>
       </header>
 <div>
@@ -56,9 +58,9 @@
 </div>
     </section>
 
-    <section role="region" id="random">
+    <section role="region" id="r_random">
       <header>
-        <a href="#root"><span class="icon icon-back">back</span></a>
+        <a href="#r_root"><span class="icon icon-back">back</span></a>
         <h1 data-l10n-id="random"> Random </h1>
       </header>
       <div>
@@ -75,9 +77,9 @@
       </div>
     </section>
 
-    <section role="region" id="settings">
+    <section role="region" id="r_settings">
       <header>
-        <a href="#root"><span class="icon icon-back">back</span></a>
+        <a href="#r_root"><span class="icon icon-back">back</span></a>
         <h1 data-l10n-id="settings"> Settings </h1>
       </header>
       <div>
@@ -196,9 +198,9 @@
       </div>
     </section>
 
-    <section role="region" id="about">
+    <section role="region" id="r_about">
       <header>
-        <a href="#root"><span class="icon icon-back">back</span></a>
+        <a href="#r_root"><span class="icon icon-back">back</span></a>
         <h1 data-l10n-id="about-hass"> About Hass </h1>
       </header>
       <div>
@@ -222,13 +224,11 @@ The only sensitive information saved in localStorage is the configuration. Passw
 </p>
         </ul>
 
-      <link rel="stylesheet" type="text/css" href="shared/style/buttons.css"/>
-      <link rel="stylesheet" type="text/css" href="style/updates.css"/>
 </div>
     </section>
 
     <!-- Main Panel -->
-    <section role="region" id="root" class="current">
+    <section role="region" id="r_root" class="current">
       <header>
         <h1 data-l10n-id="hass"> Hass </h1>
       </header>
@@ -238,19 +238,19 @@ The only sensitive information saved in localStorage is the configuration. Passw
         <ul>
           <li>
             <small id="bluetooth-desc" class="menu-item-desc"></small>
-            <a id="menuItem-deviceStorage" class="menu-item" href="#generate" data-l10n-id="generate">Generate</a>
+            <a id="menuItem-deviceStorage" class="menu-item" href="#r_generate" data-l10n-id="generate">Generate</a>
           </li>
           <li>
             <small id="bluetooth-desc" class="menu-item-desc"></small>
-            <a id="menuItem-showRandom" class="menu-item" href="#random" data-l10n-id="random">Random</a>
+            <a id="menuItem-showRandom" class="menu-item" href="#r_random" data-l10n-id="random">Random</a>
           </li>
           <li>
             <small id="bluetooth-desc" class="menu-item-desc"></small>
-            <a id="menuItem-gps" class="menu-item" href="#settings" data-l10n-id="settings">Settings</a>
+            <a id="menuItem-gps" class="menu-item" href="#r_settings" data-l10n-id="settings">Settings</a>
           </li>
           <li>
             <small id="bluetooth-desc" class="menu-item-desc"></small>
-            <a id="menuItem-deviceInfo" class="menu-item" href="#about" data-l10n-id="about">About</a>
+            <a id="menuItem-deviceInfo" class="menu-item" href="#r_about" data-l10n-id="about">About</a>
           </li>
         <header>
           <h2 data-l10n-id="--"></h2>

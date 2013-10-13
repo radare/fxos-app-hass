@@ -21,81 +21,7 @@ var Settings = {
   // Early initialization of parts of the application that don't
   // depend on the DOM being loaded.
   preInit: function settings_preInit() {
-    var settings = this.mozSettings;
-    if (!settings)
-      return;
-
-    // Make a request for settings to warm the cache, since we need it
-    // very soon in startup after the DOM is available.
-    this.getSettings(null);
-
-    // update corresponding setting when it changes
-    settings.onsettingchange = (function settingChanged(event) {
-      var key = event.settingName;
-      var value = event.settingValue;
-
-      // Always update the cache if it's present, even if the DOM
-      // isn't loaded yet.
-      if (this._settingsCache) {
-        this._settingsCache[key] = value;
-      }
-
-      // DOM isn't ready so there's nothing to update.
-      if (!this._initialized) {
-        return;
-      }
-
-      // update <span> values when the corresponding setting is changed
-      var rule = '[data-name="' + key + '"]:not([data-ignore])';
-      var spanField = document.querySelector(rule);
-      if (spanField) {
-        // check whether this setting comes from a select option
-        var options = document.querySelector('select[data-setting="' +
-          key + '"]');
-        if (options) {
-          // iterate option matching
-          var max = options.length;
-          for (var i = 0; i < max; i++) {
-            if (options[i] && options[i].value === value) {
-              spanField.dataset.l10nId = options[i].dataset.l10nId;
-              spanField.textContent = options[i].textContent;
-            }
-          }
-        } else {
-          spanField.textContent = value;
-        }
-      }
-
-      // update <input> values when the corresponding setting is changed
-      var input = document.querySelector('input[name="' + key + '"]');
-      if (!input)
-        return;
-
-      switch (input.dataset.type || input.type) { // bug344618
-        case 'checkbox':
-        case 'switch':
-          if (input.checked == value)
-            return;
-          input.checked = value;
-          break;
-        case 'range':
-          if (input.value == value)
-            return;
-          input.value = value;
-          if (input.refresh) {
-            input.refresh(); // XXX to be removed when bug344618 lands
-          }
-          break;
-        case 'select':
-          for (var i = 0; i < input.options.length; i++) {
-            if (input.options[i].value == value) {
-              input.options[i].selected = true;
-              break;
-            }
-          }
-          break;
-      }
-    }).bind(this);
+    // nothing to do here
   },
 
   _initialized: false,
@@ -576,15 +502,14 @@ window.addEventListener('load', function loadSettings() {
     Settings.presetPanel(panel);
   }
 
-  // panel navigation
-  var oldHash = window.location.hash || '#root';
+  var oldHash = window.location.hash || '#r_root';
   function showPanel() {
     var hash = window.location.hash;
 
     switch (hash) {
     case '#save': setCookie (); return;
-    case '#generate': selectInput(); break;
-    case '#random': generateRandomHash(); break;
+    case '#r_generate': selectInput(); break;
+    case '#r_random': generateRandomHash(); break;
     }
     var oldPanel = document.querySelector(oldHash);
     var newPanel = document.querySelector(hash);
@@ -594,72 +519,17 @@ window.addEventListener('load', function loadSettings() {
                            'current peek' : 'peek current forward';
     oldHash = hash;
 
-    /**
-     * Most browsers now scroll content into view taking CSS transforms into
-     * account.  That's not what we want when moving between <section>s,
-     * because the being-moved-to section is offscreen when we navigate to its
-     * #hash.  The transitions assume the viewport is always at document 0,0.
-     * So add a hack here to make that assumption true again.
-     * https://bugzilla.mozilla.org/show_bug.cgi?id=803170
-     */
     if ((window.scrollX !== 0) || (window.scrollY !== 0)) {
       window.scrollTo(0, 0);
     }
-
-    window.addEventListener('transitionend', function paintWait() {
-      window.removeEventListener('transitionend', paintWait);
-
-          clearPass ();
-      // We need to wait for the next tick otherwise gecko gets confused
-      setTimeout(function nextTick() {
-        oldPanel.classList.remove('peek');
-        oldPanel.classList.remove('forward');
-        newPanel.classList.remove('peek');
-        newPanel.classList.remove('forward');
-
-        // Bug 818056 - When multiple visible panels are present,
-        // they are not painted correctly. This appears to fix the issue.
-        // Only do this after the first load
-        if (oldPanel.className === 'current')
-          return;
-
-        oldPanel.addEventListener('transitionend', function onTransitionEnd() {
-// go back to main menu here
-		E_('pass').value =
-		E_('result').innerHTML = 
-		E_('result2').innerHTML = '';
-          //alert ("trans");
-          clearPass ();
-          oldPanel.removeEventListener('transitionend', onTransitionEnd);
-          switch (newPanel.id) {
-            case 'about-licensing':
-              // Workaround for bug 825622, remove when fixed
-              var iframe = document.getElementById('os-license');
-              iframe.src = iframe.dataset.src;
-              break;
-            case 'wifi':
-              PerformanceTestingHelper.dispatch('settings-panel-wifi-visible');
-              break;
-          }
-        });
-      });
-    });
+    clearPass ();
+    oldPanel.classList.remove('peek');
+    oldPanel.classList.remove('forward');
+    newPanel.classList.remove('peek');
+    newPanel.classList.remove('forward');
   }
 
-  // startup
   window.addEventListener('hashchange', showPanel);
-  switch (window.location.hash) {
-    case '#root':
-      // Nothing to do here; default startup case.
-      break;
-    case '':
-      document.location.hash = 'root';
-      break;
-    default:
-      E_('root').className = 'previous';
-      showPanel();
-      break;
-  }
 });
 
 // startup & language switching
@@ -682,6 +552,61 @@ Settings.getSupportedLanguages(function displayLang(languages) {
 // possible in startup.
 Settings.preInit();
 
-//if (MouseEventShim)
- // MouseEventShim.trackMouseMoves = false;
+var handleGestures = function() {
+    var self = this,
+    coords = {
+        startX: null,
+        startY: null,
+        endX: null,
+        endY: null
+    };
 
+    self.ontouchstart = function(e) {
+        coords.startX = e.changedTouches[0].clientX;
+        coords.startY = e.changedTouches[0].clientY;
+        coords.endX = coords.startX;
+        coords.endY = coords.startY;
+    }
+
+    self.ontouchmove = function(e) {
+        var newX = e.changedTouches[0].clientX;
+        var newY = e.changedTouches[0].clientY;
+        var absX = Math.abs(coords.endX - newX),
+            absY = Math.abs(coords.endY - newY);
+
+        // If we've moved more Y than X, we're scrolling vertically
+        if (absX < absY) {
+            return;
+        }
+
+        // Prevents the page from scrolling left/right
+        e.preventDefault();
+
+        coords.endX = newX;
+        coords.endY = newY;
+    }
+
+    self.ontouchend = function(e) {
+        var swipe = {},
+            deltaX = coords.startX - coords.endX,
+            deltaY = coords.startY - coords.endY,
+            absX = Math.abs(deltaX),
+            absY = Math.abs(deltaY);
+
+        swipe.distance = (absX > absY) ? absX : absY;
+        swipe.direction = (absX < absY) ?
+            (deltaY < 0 ? 'down' : 'up') :
+            (deltaX < 0 ? 'right' : 'left');
+        if (swipe.distance > 50) {
+            if (swipe.direction === 'left') {
+		    //document.location.hash = '#r_root'
+            } else if (swipe.direction === 'right') {
+		    document.location.hash = '#r_root'
+            }
+        }
+      return true;
+    }
+  window.addEventListener('ontouchstart', self.ontouchstart);
+  window.addEventListener('ontouchmove', self.ontouchmove);
+  window.addEventListener('ontouchend', self.ontouchend);
+};
