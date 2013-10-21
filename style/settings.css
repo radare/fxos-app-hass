@@ -7,6 +7,12 @@ h1 {
   user-select: none;
 }
 
+table, td, tr {
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+
 html, body {
   margin: 0;
   padding: 0;
