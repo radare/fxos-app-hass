@@ -38,29 +38,28 @@ window.onload = initHass;
 function set(x,y) {
 	var algo = E_(x);
 	algo.value = y;
-	for (var i=0; i<algo.length; i++) {
+	for (var i=0; i<algo.length; i++)
 		if (algo[i].value == y)
 			algo[i].selected = true;
-	}
 }
 
 function getCookie() {
 	var c = localStorage? localStorage.getItem ('cookie'): document.cookie;
 	if (!c) return;
-	var ca = c.split(';');
-	var ca = ca[0].split(',');
-	for (var i=0;i<ca.length; i++) {
+	var ca = c.split (';');
+	var ca = ca[0].split (',');
+	for (var i=0; i<ca.length; i++) {
 		var kv = ca[i].split('=');
-		if (kv[1].charAt(0)=='.') {
+		if (kv[1].charAt (0)=='.') {
 			var b = E_(kv[0]);
 			if (b) b.checked = (kv[1] == ".true");
 		} else {
 			set (kv[0], kv[1]);
 		}
 	}
-	setFrom();
-	setLength();
-	setAlgorithm();
+	setFrom ();
+	setLength ();
+	setAlgorithm ();
 }
 
 function get(x) {

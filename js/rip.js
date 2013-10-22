@@ -287,6 +287,7 @@ var Settings = {
 
   webActivityHandler: function settings_handleActivity(activityRequest) {
     var name = activityRequest.source.name;
+alert ("penis");
     switch (name) {
       case 'configure':
         var section = activityRequest.source.data.section || 'root';
@@ -301,9 +302,9 @@ var Settings = {
         }
 
         // Go to that section
-        //setTimeout(function settings_goToSection() {
+        setTimeout(function settings_goToSection() {
           document.location.hash = section;
-        //});
+        }, 1000);
         break;
     }
   },
@@ -503,13 +504,12 @@ window.addEventListener('load', function loadSettings() {
   }
 
   var oldHash = window.location.hash || '#r_root';
-  function showPanel() {
-    var hash = window.location.hash;
-
+  function showPanel(e) {
+    var hash = (typeof (e)=='string')? e: window.location.hash;
     switch (hash) {
     case '#save': setCookie (); return;
-    case '#r_generate': selectInput(); break;
-    case '#r_random': generateRandomHash(); break;
+    case '#r_generate': selectInput (); break;
+    case '#r_random': generateRandomHash (); break;
     }
     var oldPanel = document.querySelector(oldHash);
     var newPanel = document.querySelector(hash);
@@ -519,17 +519,39 @@ window.addEventListener('load', function loadSettings() {
                            'current peek' : 'peek current forward';
     oldHash = hash;
 
-    if ((window.scrollX !== 0) || (window.scrollY !== 0)) {
-      window.scrollTo(0, 0);
-    }
     clearPass ();
     oldPanel.classList.remove('peek');
     oldPanel.classList.remove('forward');
     newPanel.classList.remove('peek');
     newPanel.classList.remove('forward');
+    window.scrollTo(0, 0);
   }
 
   window.addEventListener('hashchange', showPanel);
+  document.getElementById('menuItem-deviceStorage').onclick = function() {
+    showPanel ('#r_generate');
+    return false;
+  };
+  document.getElementById('menuItem-showRandom').onclick = function() {
+    showPanel ('#r_random');
+    return false;
+  };
+  document.getElementById('menuItem-gps').onclick = function() {
+    showPanel ('#r_settings');
+    return false;
+  };
+function eachClass(x,y) {
+  var a = document.getElementsByClassName(x);
+  for (var i=0;i<a.length;i++) {
+    y(a[i]);
+  }
+}
+  eachClass('icon-back', function(e) {
+	  e.onclick = function() {
+		  showPanel ('#r_root');
+		  return false;
+	  }
+  });
 });
 
 // startup & language switching
