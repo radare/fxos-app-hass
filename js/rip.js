@@ -3,6 +3,8 @@
 
 'use strict';
 
+var showPanel = undefined;
+
 /**
  * Debug note: to test this app in a desktop browser, you'll have to set
  * the `dom.mozSettings.enabled' preference to false in order to avoid an
@@ -287,7 +289,6 @@ var Settings = {
 
   webActivityHandler: function settings_handleActivity(activityRequest) {
     var name = activityRequest.source.name;
-alert ("penis");
     switch (name) {
       case 'configure':
         var section = activityRequest.source.data.section || 'root';
@@ -504,7 +505,12 @@ window.addEventListener('load', function loadSettings() {
   }
 
   var oldHash = window.location.hash || '#r_root';
-  function showPanel(e) {
+  showPanel = function(e) {
+try {
+var elem = document.activeElement;
+if (elem) elem.blur();
+} catch(x) {
+};
     var hash = (typeof (e)=='string')? e: window.location.hash;
     switch (hash) {
     case '#save': setCookie (); return;
@@ -597,9 +603,8 @@ var handleGestures = function() {
             absY = Math.abs(coords.endY - newY);
 
         // If we've moved more Y than X, we're scrolling vertically
-        if (absX < absY) {
+        if (absX < absY)
             return;
-        }
 
         // Prevents the page from scrolling left/right
         e.preventDefault();
@@ -620,11 +625,14 @@ var handleGestures = function() {
             (deltaY < 0 ? 'down' : 'up') :
             (deltaX < 0 ? 'right' : 'left');
         if (swipe.distance > 50) {
+//alert("jeje: "+swipe.distance + " : "+swipe.direction);
             if (swipe.direction === 'left') {
 		    //document.location.hash = '#r_root'
+//alert (swipe.direction);
             } else if (swipe.direction === 'right') {
-		    document.location.hash = '#r_root'
-            }
+		    showPanel ('#r_root');
+//		    document.location.hash = '#r_root'
+	    }
         }
       return true;
     }
