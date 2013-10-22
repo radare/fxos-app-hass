@@ -3,7 +3,7 @@
   "launch_path": "/index.html",
   "description": "Hash based password tool",
   "default_locale": "en",
-  "version": "0.4",
+  "version": "0.5",
   "developer": {
     "name": "pancake",
     "url": "http://hass.ffos.lolcathost.org/"
