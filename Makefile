@@ -28,7 +28,7 @@ missing:
 # npm install uglify-js
 U=../node_modules/.bin/uglifyjs
 #U=cat
-JSFILES=base64.js hass.js md5.js sha1.js crc32.js rip.js
+JSFILES=base64.js rip.js hass.js md5.js sha1.js crc32.js
 
 one: node_modules/.bin/uglifyjs
 	@echo ''
