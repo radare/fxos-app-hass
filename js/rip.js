@@ -516,10 +516,12 @@ if (elem) elem.blur();
     case '#save': setCookie (); return;
     case '#r_generate': selectInput (); break;
     case '#r_random': generateRandomHash (); break;
+    case '': hash = '#r_root'; break;
     }
     var oldPanel = document.querySelector(oldHash);
     var newPanel = document.querySelector(hash);
 
+    if (!oldPanel) oldPanel = {}
     oldPanel.className = newPanel.className ? 'peek' : 'peek previous forward';
     newPanel.className = newPanel.className ?
                            'current peek' : 'peek current forward';

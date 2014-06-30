@@ -27,9 +27,13 @@ missing:
 
 # npm install uglify-js
 U=../node_modules/.bin/uglifyjs
+#U=cat
 JSFILES=base64.js hass.js md5.js sha1.js crc32.js rip.js
 
 one: node_modules/.bin/uglifyjs
+	@echo ''
+	@echo "Run: 'make one U=cat' to generate uncompressed index.js"
+	@echo ''
 	rm -rf one
 	mkdir -p one
 	cd js; for a in ${JSFILES} ; do echo " - $$a"; $U < $$a 2>/dev/null > ../one/$$a ; done
